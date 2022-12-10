@@ -12,6 +12,7 @@ class DataIngestion:
     
     def __init__(self,data_ingestion_config:config_entity.DataIngestionConfig ):
         try:
+            logging.info(f"{'>>'*20} Data Ingestion {'<<'*20}")
             self.data_ingestion_config = data_ingestion_config
         except Exception as e:
             raise SensorException(e, sys)
@@ -24,7 +25,8 @@ class DataIngestion:
                 database_name=self.data_ingestion_config.database_name, 
                 collection_name=self.data_ingestion_config.collection_name)
 
-            logging.info("replace na with Nan")
+            logging.info("Save data in feature store")
+
             #replace na with Nan
             df.replace(to_replace="na",value=np.NAN,inplace=True)
 
@@ -40,7 +42,7 @@ class DataIngestion:
 
             logging.info("split dataset into train and test set")
             #split dataset into train and test set
-            train_df,test_df = train_test_split(df,test_size=self.data_ingestion_config.test_size)
+            train_df,test_df = train_test_split(df,test_size=self.data_ingestion_config.test_size,random_state=42)
             
             logging.info("create dataset directory folder if not available")
             #create dataset directory folder if not available
