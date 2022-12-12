@@ -63,12 +63,12 @@ class DataTransformation:
             target_feature_train_arr = label_encoder.transform(target_feature_train_df)
             target_feature_test_arr = label_encoder.transform(target_feature_test_df)
 
-            transformation_pipleine = DataTransformation.get_data_transformer_object()
-            transformation_pipleine.fit(input_feature_train_df)
+            transformation_pipeline = DataTransformation.get_data_transformer_object()
+            transformation_pipeline.fit(input_feature_train_df)
 
             #transforming input features
-            input_feature_train_arr = transformation_pipleine.transform(input_feature_train_df)
-            input_feature_test_arr = transformation_pipleine.transform(input_feature_test_df)
+            input_feature_train_arr = transformation_pipeline.transform(input_feature_train_df)
+            input_feature_test_arr = transformation_pipeline.transform(input_feature_test_df)
             
 
             smt = SMOTETomek(random_state=42)
